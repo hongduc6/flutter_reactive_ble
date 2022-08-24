@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:reactive_ble_platform_interface/reactive_ble_platform_interface.dart';
 import 'converter/args_to_protubuf_converter.dart';
@@ -5,13 +6,13 @@ import 'converter/protobuf_converter.dart';
 
 class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
   ReactiveBleMobilePlatform({
-    required ArgsToProtobufConverter argsToProtobufConverter,
-    required ProtobufConverter protobufConverter,
-    required MethodChannel bleMethodChannel,
-    required Stream<List<int>> connectedDeviceChannel,
-    required Stream<List<int>> charUpdateChannel,
-    required Stream<List<int>> bleDeviceScanChannel,
-    required Stream<List<int>> bleStatusChannel,
+    @required ArgsToProtobufConverter argsToProtobufConverter,
+    @required ProtobufConverter protobufConverter,
+    @required MethodChannel bleMethodChannel,
+    @required Stream<List<int>> connectedDeviceChannel,
+    @required Stream<List<int>> charUpdateChannel,
+    @required Stream<List<int>> bleDeviceScanChannel,
+    @required Stream<List<int>> bleStatusChannel,
   })  : _argsToProtobufConverter = argsToProtobufConverter,
         _protobufConverter = protobufConverter,
         _bleMethodChannel = bleMethodChannel,
@@ -28,10 +29,10 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
   final Stream<List<int>> _bleDeviceScanRawStream;
   final Stream<List<int>> _bleStatusRawChannel;
 
-  Stream<ConnectionStateUpdate>? _connectionUpdateStream;
-  Stream<CharacteristicValue>? _charValueStream;
-  Stream<ScanResult>? _scanResultStream;
-  Stream<BleStatus>? _bleStatusStream;
+  Stream<ConnectionStateUpdate> _connectionUpdateStream;
+  Stream<CharacteristicValue> _charValueStream;
+  Stream<ScanResult> _scanResultStream;
+  Stream<BleStatus> _bleStatusStream;
 
   @override
   Stream<ConnectionStateUpdate> get connectionUpdateStream =>
@@ -68,9 +69,9 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
 
   @override
   Stream<void> scanForDevices({
-    required List<Uuid> withServices,
-    required ScanMode scanMode,
-    required bool requireLocationServicesEnabled,
+    @required List<Uuid> withServices,
+    @required ScanMode scanMode,
+    @required bool requireLocationServicesEnabled,
   }) =>
       _bleMethodChannel
           .invokeMethod<void>(
@@ -89,8 +90,8 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
   @override
   Stream<void> connectToDevice(
     String id,
-    Map<Uuid, List<Uuid>>? servicesWithCharacteristicsToDiscover,
-    Duration? connectionTimeout,
+    Map<Uuid, List<Uuid>> servicesWithCharacteristicsToDiscover,
+    Duration connectionTimeout,
   ) =>
       _bleMethodChannel
           .invokeMethod<void>(
@@ -136,8 +137,7 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
               _argsToProtobufConverter
                   .createWriteCharacteristicRequest(characteristic, value)
                   .writeToBuffer())
-          .then(
-              (data) => _protobufConverter.writeCharacteristicInfoFrom(data!));
+          .then((data) => _protobufConverter.writeCharacteristicInfoFrom(data));
 
   @override
   Future<WriteCharacteristicInfo> writeCharacteristicWithoutResponse(
@@ -151,8 +151,7 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
                 .createWriteCharacteristicRequest(characteristic, value)
                 .writeToBuffer(),
           )
-          .then(
-              (data) => _protobufConverter.writeCharacteristicInfoFrom(data!));
+          .then((data) => _protobufConverter.writeCharacteristicInfoFrom(data));
 
   @override
   Stream<void> subscribeToNotifications(
@@ -184,15 +183,15 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
           );
 
   @override
-  Future<int> requestMtuSize(String deviceId, int? mtu) async =>
+  Future<int> requestMtuSize(String deviceId, int mtu) async =>
       _bleMethodChannel
           .invokeMethod<List<int>>(
             "negotiateMtuSize",
             _argsToProtobufConverter
-                .createNegotiateMtuRequest(deviceId, mtu!)
+                .createNegotiateMtuRequest(deviceId, mtu)
                 .writeToBuffer(),
           )
-          .then((data) => _protobufConverter.mtuSizeFrom(data!));
+          .then((data) => _protobufConverter.mtuSizeFrom(data));
 
   @override
   Future<ConnectionPriorityInfo> requestConnectionPriority(
@@ -204,10 +203,10 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
                 .createChangeConnectionPrioRequest(deviceId, priority)
                 .writeToBuffer(),
           )
-          .then((data) => _protobufConverter.connectionPriorityInfoFrom(data!));
+          .then((data) => _protobufConverter.connectionPriorityInfoFrom(data));
 
   @override
-  Future<Result<Unit, GenericFailure<ClearGattCacheError>?>> clearGattCache(
+  Future<Result<Unit, GenericFailure<ClearGattCacheError>>> clearGattCache(
           String deviceId) =>
       _bleMethodChannel
           .invokeMethod<List<int>>(
@@ -216,7 +215,7 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
                 .createClearGattCacheRequest(deviceId)
                 .writeToBuffer(),
           )
-          .then((data) => _protobufConverter.clearGattCacheResultFrom(data!));
+          .then((data) => _protobufConverter.clearGattCacheResultFrom(data));
 
   @override
   Future<List<DiscoveredService>> discoverServices(String deviceId) async =>
@@ -227,7 +226,7 @@ class ReactiveBleMobilePlatform extends ReactiveBlePlatform {
                 .createDiscoverServicesRequest(deviceId)
                 .writeToBuffer(),
           )
-          .then((data) => _protobufConverter.discoveredServicesFrom(data!));
+          .then((data) => _protobufConverter.discoveredServicesFrom(data));
 }
 
 class ReactiveBleMobilePlatformFactory {

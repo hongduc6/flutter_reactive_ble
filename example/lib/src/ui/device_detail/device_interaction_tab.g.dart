@@ -17,10 +17,10 @@ abstract class $DeviceInteractionViewModel {
   BleDeviceConnector get deviceConnector;
   Future<List<DiscoveredService>> Function() get discoverServices;
   DeviceInteractionViewModel copyWith(
-          {String? deviceId,
-          DeviceConnectionState? connectionStatus,
-          BleDeviceConnector? deviceConnector,
-          Future<List<DiscoveredService>> Function()? discoverServices}) =>
+          {String deviceId,
+          DeviceConnectionState connectionStatus,
+          BleDeviceConnector deviceConnector,
+          Future<List<DiscoveredService>> Function() discoverServices}) =>
       DeviceInteractionViewModel(
           deviceId: deviceId ?? this.deviceId,
           connectionStatus: connectionStatus ?? this.connectionStatus,
@@ -31,12 +31,13 @@ abstract class $DeviceInteractionViewModel {
       "DeviceInteractionViewModel(deviceId: $deviceId, connectionStatus: $connectionStatus, deviceConnector: $deviceConnector, discoverServices: $discoverServices)";
   @override
   bool operator ==(Object other) =>
+      identical(this, other) ||
       other is DeviceInteractionViewModel &&
-      other.runtimeType == runtimeType &&
-      deviceId == other.deviceId &&
-      connectionStatus == other.connectionStatus &&
-      deviceConnector == other.deviceConnector &&
-      const Ignore().equals(discoverServices, other.discoverServices);
+          other.runtimeType == runtimeType &&
+          deviceId == other.deviceId &&
+          connectionStatus == other.connectionStatus &&
+          deviceConnector == other.deviceConnector &&
+          const Ignore().equals(discoverServices, other.discoverServices);
   @override
   int get hashCode {
     var result = 17;

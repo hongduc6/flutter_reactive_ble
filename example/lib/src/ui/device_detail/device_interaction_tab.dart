@@ -14,8 +14,8 @@ class DeviceInteractionTab extends StatelessWidget {
   final DiscoveredDevice device;
 
   const DeviceInteractionTab({
-    required this.device,
-    Key? key,
+    @required this.device,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -38,10 +38,10 @@ class DeviceInteractionTab extends StatelessWidget {
 @FunctionalData()
 class DeviceInteractionViewModel extends $DeviceInteractionViewModel {
   const DeviceInteractionViewModel({
-    required this.deviceId,
-    required this.connectionStatus,
-    required this.deviceConnector,
-    required this.discoverServices,
+    @required this.deviceId,
+    @required this.connectionStatus,
+    @required this.deviceConnector,
+    @required this.discoverServices,
   });
 
   final String deviceId;
@@ -64,8 +64,8 @@ class DeviceInteractionViewModel extends $DeviceInteractionViewModel {
 
 class _DeviceInteractionTab extends StatefulWidget {
   const _DeviceInteractionTab({
-    required this.viewModel,
-    Key? key,
+    @required this.viewModel,
+    Key key,
   }) : super(key: key);
 
   final DeviceInteractionViewModel viewModel;
@@ -75,7 +75,7 @@ class _DeviceInteractionTab extends StatefulWidget {
 }
 
 class _DeviceInteractionTabState extends State<_DeviceInteractionTab> {
-  late List<DiscoveredService> discoveredServices;
+  List<DiscoveredService> discoveredServices;
 
   @override
   void initState() {
@@ -151,9 +151,9 @@ class _DeviceInteractionTabState extends State<_DeviceInteractionTab> {
 
 class _ServiceDiscoveryList extends StatefulWidget {
   const _ServiceDiscoveryList({
-    required this.deviceId,
-    required this.discoveredServices,
-    Key? key,
+    @required this.deviceId,
+    @required this.discoveredServices,
+    Key key,
   }) : super(key: key);
 
   final String deviceId;
@@ -164,7 +164,7 @@ class _ServiceDiscoveryList extends StatefulWidget {
 }
 
 class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
-  late final List<int> _expandedItems;
+  List<int> _expandedItems;
 
   @override
   void initState() {

@@ -9,7 +9,7 @@ import 'device_interaction_tab.dart';
 class DeviceDetailScreen extends StatelessWidget {
   final DiscoveredDevice device;
 
-  const DeviceDetailScreen({required this.device, Key? key}) : super(key: key);
+  const DeviceDetailScreen({@required this.device, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Consumer<BleDeviceConnector>(
@@ -22,9 +22,9 @@ class DeviceDetailScreen extends StatelessWidget {
 
 class _DeviceDetail extends StatelessWidget {
   const _DeviceDetail({
-    required this.device,
-    required this.disconnect,
-    Key? key,
+    @required this.device,
+    @required this.disconnect,
+    Key key,
   }) : super(key: key);
 
   final DiscoveredDevice device;

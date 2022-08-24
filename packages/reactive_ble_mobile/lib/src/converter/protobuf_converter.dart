@@ -13,7 +13,7 @@ abstract class ProtobufConverter {
 
   ConnectionStateUpdate connectionStateUpdateFrom(List<int> data);
 
-  Result<Unit, GenericFailure<ClearGattCacheError>?> clearGattCacheResultFrom(
+  Result<Unit, GenericFailure<ClearGattCacheError>> clearGattCacheResultFrom(
       List<int> data);
 
   CharacteristicValue characteristicValueFrom(List<int> data);
@@ -81,19 +81,19 @@ class ProtobufConverterImpl implements ProtobufConverter {
       connectionState: selectFrom(
         DeviceConnectionState.values,
         index: deviceInfo.connectionState,
-        fallback: (int? raw) => throw _InvalidConnectionState(raw),
+        fallback: (int raw) => throw _InvalidConnectionState(raw),
       ),
       failure: genericFailureFrom(
         hasFailure: deviceInfo.hasFailure(),
         getFailure: () => deviceInfo.failure,
         codes: ConnectionError.values,
-        fallback: (int? rawOrNull) => ConnectionError.unknown,
+        fallback: (int rawOrNull) => ConnectionError.unknown,
       ),
     );
   }
 
   @override
-  Result<Unit, GenericFailure<ClearGattCacheError>?> clearGattCacheResultFrom(
+  Result<Unit, GenericFailure<ClearGattCacheError>> clearGattCacheResultFrom(
       List<int> data) {
     final message = pb.ClearGattCacheInfo.fromBuffer(data);
     return resultFrom(
@@ -172,11 +172,11 @@ class ProtobufConverterImpl implements ProtobufConverter {
       );
 
   @visibleForTesting
-  GenericFailure<T>? genericFailureFrom<T>({
-    required bool hasFailure,
-    required pb.GenericFailure Function() getFailure,
-    required List<T> codes,
-    required T Function(int? rawOrNull) fallback,
+  GenericFailure<T> genericFailureFrom<T>({
+    @required bool hasFailure,
+    @required pb.GenericFailure Function() getFailure,
+    @required List<T> codes,
+    @required T Function(int rawOrNull) fallback,
   }) {
     if (hasFailure) {
       final error = getFailure();
@@ -219,14 +219,14 @@ class ProtobufConverterImpl implements ProtobufConverter {
 
   @visibleForTesting
   Result<Value, Failure> resultFrom<Value, Failure>(
-          {required Value Function() getValue, required Failure failure}) =>
+          {@required Value Function() getValue, @required Failure failure}) =>
       failure != null
           ? Result<Value, Failure>.failure(failure)
           : Result.success(getValue());
 }
 
 class _InvalidConnectionState extends Error {
-  final int? rawValue;
+  final int rawValue;
 
   _InvalidConnectionState(this.rawValue);
 

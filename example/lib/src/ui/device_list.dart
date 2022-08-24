@@ -7,10 +7,10 @@ import '../widgets.dart';
 import 'device_detail/device_detail_screen.dart';
 
 class DeviceListScreen extends StatelessWidget {
-  const DeviceListScreen({Key? key}) : super(key: key);
+  const DeviceListScreen({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Consumer2<BleScanner, BleScannerState?>(
+  Widget build(BuildContext context) => Consumer2<BleScanner, BleScannerState>(
         builder: (_, bleScanner, bleScannerState, __) => _DeviceList(
           scannerState: bleScannerState ??
               const BleScannerState(
@@ -25,9 +25,9 @@ class DeviceListScreen extends StatelessWidget {
 
 class _DeviceList extends StatefulWidget {
   const _DeviceList(
-      {required this.scannerState,
-      required this.startScan,
-      required this.stopScan});
+      {@required this.scannerState,
+      @required this.startScan,
+      @required this.stopScan});
 
   final BleScannerState scannerState;
   final void Function(List<Uuid>) startScan;
@@ -38,7 +38,7 @@ class _DeviceList extends StatefulWidget {
 }
 
 class _DeviceListState extends State<_DeviceList> {
-  late TextEditingController _uuidController;
+  TextEditingController _uuidController;
 
   @override
   void initState() {

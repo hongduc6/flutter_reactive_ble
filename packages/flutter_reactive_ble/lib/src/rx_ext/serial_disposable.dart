@@ -11,7 +11,7 @@ class SerialDisposable<T> {
     if (_isDisposed) {
       throw _SerialAlreadyDisposed(runtimeType);
     }
-    if (_value != null) await _dispose(_value!);
+    if (_value != null) await _dispose(_value);
     _value = newValue;
   }
 
@@ -19,7 +19,7 @@ class SerialDisposable<T> {
   Future<void> dispose() async {
     _isDisposed = true;
     if (_value != null) {
-      await _dispose(_value!);
+      await _dispose(_value);
     }
   }
 
@@ -28,7 +28,7 @@ class SerialDisposable<T> {
 
   final Future<Unit> Function(T) _dispose;
   bool _isDisposed = false;
-  T? _value;
+  T _value;
 }
 
 class _SerialAlreadyDisposed extends Error {

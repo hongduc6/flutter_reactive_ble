@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:flutter_reactive_ble_example/src/ble/reactive_state.dart';
 
 class BleDeviceConnector extends ReactiveState<ConnectionStateUpdate> {
   BleDeviceConnector({
-    required FlutterReactiveBle ble,
-    required Function(String message) logMessage,
+    @required FlutterReactiveBle ble,
+    @required Function(String message) logMessage,
   })  : _ble = ble,
         _logMessage = logMessage;
 
@@ -19,7 +20,7 @@ class BleDeviceConnector extends ReactiveState<ConnectionStateUpdate> {
   final _deviceConnectionController = StreamController<ConnectionStateUpdate>();
 
   // ignore: cancel_subscriptions
-  late StreamSubscription<ConnectionStateUpdate> _connection;
+  StreamSubscription<ConnectionStateUpdate> _connection;
 
   Future<void> connect(String deviceId) async {
     _logMessage('Start connecting to $deviceId');

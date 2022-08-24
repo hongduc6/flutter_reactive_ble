@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 class CharacteristicInteractionDialog extends StatelessWidget {
   const CharacteristicInteractionDialog({
-    required this.characteristic,
-    Key? key,
+    @required this.characteristic,
+    Key key,
   }) : super(key: key);
   final QualifiedCharacteristic characteristic;
 
@@ -26,12 +26,12 @@ class CharacteristicInteractionDialog extends StatelessWidget {
 
 class _CharacteristicInteractionDialog extends StatefulWidget {
   const _CharacteristicInteractionDialog({
-    required this.characteristic,
-    required this.readCharacteristic,
-    required this.writeWithResponse,
-    required this.writeWithoutResponse,
-    required this.subscribeToCharacteristic,
-    Key? key,
+    @required this.characteristic,
+    @required this.readCharacteristic,
+    @required this.writeWithResponse,
+    @required this.writeWithoutResponse,
+    @required this.subscribeToCharacteristic,
+    Key key,
   }) : super(key: key);
 
   final QualifiedCharacteristic characteristic;
@@ -55,11 +55,11 @@ class _CharacteristicInteractionDialog extends StatefulWidget {
 
 class _CharacteristicInteractionDialogState
     extends State<_CharacteristicInteractionDialog> {
-  late String readOutput;
-  late String writeOutput;
-  late String subscribeOutput;
-  late TextEditingController textEditingController;
-  late StreamSubscription<List<int>>? subscribeStream;
+  String readOutput;
+  String writeOutput;
+  String subscribeOutput;
+  TextEditingController textEditingController;
+  StreamSubscription<List<int>> subscribeStream;
 
   @override
   void initState() {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:reactive_ble_platform_interface/reactive_ble_platform_interface.dart';
 
 import '../generated/bledata.pb.dart' as pb;
@@ -5,8 +6,8 @@ import '../generated/bledata.pb.dart' as pb;
 abstract class ArgsToProtobufConverter {
   pb.ConnectToDeviceRequest createConnectToDeviceArgs(
     String id,
-    Map<Uuid, List<Uuid>>? servicesWithCharacteristicsToDiscover,
-    Duration? connectionTimeout,
+    Map<Uuid, List<Uuid>> servicesWithCharacteristicsToDiscover,
+    Duration connectionTimeout,
   );
 
   pb.DisconnectFromDeviceRequest createDisconnectDeviceArgs(String deviceId);
@@ -39,9 +40,9 @@ abstract class ArgsToProtobufConverter {
   );
 
   pb.ScanForDevicesRequest createScanForDevicesRequest({
-    required List<Uuid>? withServices,
-    required ScanMode scanMode,
-    required bool requireLocationServicesEnabled,
+    @required List<Uuid> withServices,
+    @required ScanMode scanMode,
+    @required bool requireLocationServicesEnabled,
   });
 
   pb.ClearGattCacheRequest createClearGattCacheRequest(String deviceId);
@@ -55,8 +56,8 @@ class ArgsToProtobufConverterImpl implements ArgsToProtobufConverter {
   @override
   pb.ConnectToDeviceRequest createConnectToDeviceArgs(
     String id,
-    Map<Uuid, List<Uuid>>? servicesWithCharacteristicsToDiscover,
-    Duration? connectionTimeout,
+    Map<Uuid, List<Uuid>> servicesWithCharacteristicsToDiscover,
+    Duration connectionTimeout,
   ) {
     final args = pb.ConnectToDeviceRequest()..deviceId = id;
 
@@ -68,7 +69,7 @@ class ArgsToProtobufConverterImpl implements ArgsToProtobufConverter {
       final items = <pb.ServiceWithCharacteristics>[];
       for (final serviceId in servicesWithCharacteristicsToDiscover.keys) {
         final characteristicIds =
-            servicesWithCharacteristicsToDiscover[serviceId]!;
+            servicesWithCharacteristicsToDiscover[serviceId];
         items.add(
           pb.ServiceWithCharacteristics()
             ..serviceId = (pb.Uuid()..data = serviceId.data)
@@ -170,9 +171,9 @@ class ArgsToProtobufConverterImpl implements ArgsToProtobufConverter {
 
   @override
   pb.ScanForDevicesRequest createScanForDevicesRequest({
-    required List<Uuid>? withServices,
-    required ScanMode scanMode,
-    required bool requireLocationServicesEnabled,
+    @required List<Uuid> withServices,
+    @required ScanMode scanMode,
+    @required bool requireLocationServicesEnabled,
   }) {
     final args = pb.ScanForDevicesRequest()
       ..scanMode = convertScanModeToArgs(scanMode)

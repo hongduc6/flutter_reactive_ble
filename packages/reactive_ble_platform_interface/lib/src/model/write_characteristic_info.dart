@@ -8,11 +8,11 @@ import 'unit.dart';
 @immutable
 class WriteCharacteristicInfo {
   final QualifiedCharacteristic characteristic;
-  final Result<Unit, GenericFailure<WriteCharacteristicFailure>?> result;
+  final Result<Unit, GenericFailure<WriteCharacteristicFailure>> result;
 
   const WriteCharacteristicInfo({
-    required this.characteristic,
-    required this.result,
+    @required this.characteristic,
+    @required this.result,
   });
 
   @override

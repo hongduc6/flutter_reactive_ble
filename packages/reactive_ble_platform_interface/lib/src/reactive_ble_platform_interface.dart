@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'models.dart';
@@ -13,7 +14,7 @@ abstract class ReactiveBlePlatform extends PlatformInterface {
   ReactiveBlePlatform() : super(token: _token);
   static final Object _token = Object();
 
-  static late ReactiveBlePlatform _instance;
+  static ReactiveBlePlatform _instance;
 
   static ReactiveBlePlatform get instance => _instance;
 
@@ -73,16 +74,16 @@ abstract class ReactiveBlePlatform extends PlatformInterface {
   /// As long as the stream has been `listened` to the scanning continues. When
   /// the stream is `cancelled ` the ble scanning should stop.
   Stream<void> scanForDevices({
-    required List<Uuid> withServices,
-    required ScanMode scanMode,
-    required bool requireLocationServicesEnabled,
+    @required List<Uuid> withServices,
+    @required ScanMode scanMode,
+    @required bool requireLocationServicesEnabled,
   }) {
     throw UnimplementedError('scanForDevices has not been implemented.');
   }
 
   /// Clears GATT attribute cache on Android using undocumented API. This method
   /// should not be implemented for other platforms.
-  Future<Result<Unit, GenericFailure<ClearGattCacheError>?>> clearGattCache(
+  Future<Result<Unit, GenericFailure<ClearGattCacheError>>> clearGattCache(
       String deviceId) {
     throw UnimplementedError('clearGattCache() has not been implemented.');
   }
@@ -93,8 +94,8 @@ abstract class ReactiveBlePlatform extends PlatformInterface {
   /// The actual `connection updates` should be propagated to the [connectionUpdateStream].
   Stream<void> connectToDevice(
     String id,
-    Map<Uuid, List<Uuid>>? servicesWithCharacteristicsToDiscover,
-    Duration? connectionTimeout,
+    Map<Uuid, List<Uuid>> servicesWithCharacteristicsToDiscover,
+    Duration connectionTimeout,
   ) {
     throw UnimplementedError('connectToDevice has not been implemented.');
   }
@@ -168,7 +169,7 @@ abstract class ReactiveBlePlatform extends PlatformInterface {
   }
 
   /// Requests a specific MTU for a connected device.
-  Future<int> requestMtuSize(String deviceId, int? mtu) {
+  Future<int> requestMtuSize(String deviceId, int mtu) {
     throw UnimplementedError('requestMtuSize has not been implemented.');
   }
 

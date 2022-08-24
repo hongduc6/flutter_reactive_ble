@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../model/unit.dart';
 import 'generic_failure.dart';
 import 'result.dart';
@@ -30,9 +32,9 @@ int convertPriorityToInt(ConnectionPriority priority) {
 
 /// Result of the connection priority request
 class ConnectionPriorityInfo {
-  const ConnectionPriorityInfo({required this.result});
+  const ConnectionPriorityInfo({@required this.result});
 
-  final Result<Unit, GenericFailure<ConnectionPriorityFailure>?> result;
+  final Result<Unit, GenericFailure<ConnectionPriorityFailure>> result;
 }
 
 /// Error type for connection priority.

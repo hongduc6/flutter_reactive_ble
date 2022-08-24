@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:functional_data/functional_data.dart';
 import 'package:reactive_ble_platform_interface/src/model/discovered_characteristic.dart';
 
@@ -10,9 +11,9 @@ part 'discovered_service.g.dart';
 @FunctionalData()
 class DiscoveredService extends $DiscoveredService {
   const DiscoveredService({
-    required this.serviceId,
-    required this.characteristicIds,
-    required this.characteristics,
+    @required this.serviceId,
+    @required this.characteristicIds,
+    @required this.characteristics,
     this.includedServices = const [],
   });
 

@@ -20,13 +20,13 @@ class DiscoveredCharacteristic {
   final bool isIndicatable;
 
   const DiscoveredCharacteristic({
-    required this.characteristicId,
-    required this.serviceId,
-    required this.isReadable,
-    required this.isWritableWithResponse,
-    required this.isWritableWithoutResponse,
-    required this.isNotifiable,
-    required this.isIndicatable,
+    @required this.characteristicId,
+    @required this.serviceId,
+    @required this.isReadable,
+    @required this.isWritableWithResponse,
+    @required this.isWritableWithoutResponse,
+    @required this.isNotifiable,
+    @required this.isIndicatable,
   });
 
   @override

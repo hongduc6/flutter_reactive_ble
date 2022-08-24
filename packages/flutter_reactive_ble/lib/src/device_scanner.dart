@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
+import 'package:meta/meta.dart';
 
 abstract class DeviceScanner {
-  ScanSession? get currentScan;
+  ScanSession get currentScan;
 
   Stream<DiscoveredDevice> scanForDevices({
-    required List<Uuid> withServices,
+    @required List<Uuid> withServices,
     ScanMode scanMode = ScanMode.balanced,
     bool requireLocationServicesEnabled = true,
   });
@@ -14,15 +15,15 @@ abstract class DeviceScanner {
 
 class DeviceScannerImpl implements DeviceScanner {
   DeviceScannerImpl({
-    required ReactiveBlePlatform blePlatform,
-    required bool Function() platformIsAndroid,
-    required Future<void> delayAfterScanCompletion,
-    required this.addToScanRegistry,
+    @required ReactiveBlePlatform blePlatform,
+    @required bool Function() platformIsAndroid,
+    @required Future<void> delayAfterScanCompletion,
+    @required this.addToScanRegistry,
   })  : _blePlatform = blePlatform,
         _platformIsAndroid = platformIsAndroid,
         _delayAfterScanCompletion = delayAfterScanCompletion;
 
-  ScanSession? _currentScanSession;
+  ScanSession _currentScanSession;
 
   final ReactiveBlePlatform _blePlatform;
   final bool Function() _platformIsAndroid;
@@ -36,11 +37,11 @@ class DeviceScannerImpl implements DeviceScanner {
           (Repeater<DiscoveredDevice> repeater) => repeater.dispose());
 
   @override
-  ScanSession? get currentScan => _currentScanSession;
+  ScanSession get currentScan => _currentScanSession;
 
   @override
   Stream<DiscoveredDevice> scanForDevices({
-    required List<Uuid> withServices,
+    @required List<Uuid> withServices,
     ScanMode scanMode = ScanMode.balanced,
     bool requireLocationServicesEnabled = true,
   }) {

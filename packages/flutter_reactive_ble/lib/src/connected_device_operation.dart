@@ -8,12 +8,12 @@ abstract class ConnectedDeviceOperation {
 
   Future<void> writeCharacteristicWithResponse(
     QualifiedCharacteristic characteristic, {
-    required List<int> value,
+    @required List<int> value,
   });
 
   Future<void> writeCharacteristicWithoutResponse(
     QualifiedCharacteristic characteristic, {
-    required List<int> value,
+    @required List<int> value,
   });
 
   Stream<List<int>> subscribeToCharacteristic(
@@ -30,7 +30,7 @@ abstract class ConnectedDeviceOperation {
 }
 
 class ConnectedDeviceOperationImpl implements ConnectedDeviceOperation {
-  ConnectedDeviceOperationImpl({required ReactiveBlePlatform blePlatform})
+  ConnectedDeviceOperationImpl({@required ReactiveBlePlatform blePlatform})
       : _blePlatform = blePlatform;
 
   final ReactiveBlePlatform _blePlatform;
@@ -55,7 +55,7 @@ class ConnectedDeviceOperationImpl implements ConnectedDeviceOperation {
   @override
   Future<void> writeCharacteristicWithResponse(
     QualifiedCharacteristic characteristic, {
-    required List<int> value,
+    @required List<int> value,
   }) async =>
       _blePlatform
           .writeCharacteristicWithResponse(characteristic, value)
@@ -64,7 +64,7 @@ class ConnectedDeviceOperationImpl implements ConnectedDeviceOperation {
   @override
   Future<void> writeCharacteristicWithoutResponse(
     QualifiedCharacteristic characteristic, {
-    required List<int> value,
+    @required List<int> value,
   }) async =>
       _blePlatform
           .writeCharacteristicWithoutResponse(characteristic, value)

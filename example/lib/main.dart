@@ -39,14 +39,14 @@ void main() {
         Provider.value(value: _connector),
         Provider.value(value: _serviceDiscoverer),
         Provider.value(value: _bleLogger),
-        StreamProvider<BleScannerState?>(
+        StreamProvider<BleScannerState>(
           create: (_) => _scanner.state,
           initialData: const BleScannerState(
             discoveredDevices: [],
             scanIsInProgress: false,
           ),
         ),
-        StreamProvider<BleStatus?>(
+        StreamProvider<BleStatus>(
           create: (_) => _monitor.state,
           initialData: BleStatus.unknown,
         ),
@@ -71,11 +71,11 @@ void main() {
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Consumer<BleStatus?>(
+  Widget build(BuildContext context) => Consumer<BleStatus>(
         builder: (_, status, __) {
           if (status == BleStatus.ready) {
             return const DeviceListScreen();
